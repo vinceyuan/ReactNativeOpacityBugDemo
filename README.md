@@ -6,4 +6,6 @@ From the following screenshot, you can see the opacity does not work when Layout
 
 ![Screenshot](https://github.com/vinceyuan/ReactNativeOpacityBugDemo/raw/master/ReactNativeOpacityBug.gif)
 
+Reproducible with React Native 0.38.0 and 0.40.0 on Android 5.0.0
+
 Author: Vince Yuan
