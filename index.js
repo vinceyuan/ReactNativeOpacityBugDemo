@@ -27,9 +27,10 @@ export default class OpacityBugDemo extends Component {
     }
   }
 
-  add2Items() {
+  addItem() {
     let count = this.state.items.length;
-    this.setState({items: [count+2, count+1, ...this.state.items]});
+    //this.setState({items: [count+2, count+1, ...this.state.items]});
+    this.setState({items: [count+1, ...this.state.items]});
   }
 
   render() {
@@ -49,7 +50,7 @@ export default class OpacityBugDemo extends Component {
               let left = index * width;
               return (
                 <Text key={item}
-                style={index%2==0?null:{opacity: 0.2}}>
+                style={item%2==0?null:{opacity: 0.2}}>
                   {'Text ' + item.toString() + ' '}
                 </Text>
               );
@@ -67,7 +68,7 @@ export default class OpacityBugDemo extends Component {
               let left = index * width;
               return (
                 <View key={item}
-                  style={[{backgroundColor: 'green'}, index%2==0?null:{opacity: 0.2}]}>
+                  style={[{backgroundColor: 'green'}, item%2==0?null:{opacity: 0.2}]}>
                   <Text>{'Text ' + item.toString() + ' '}</Text>
                 </View>
               );
@@ -85,7 +86,7 @@ export default class OpacityBugDemo extends Component {
               let left = index * width;
               return (
                 <Text key={item}
-                style={{color: '#777777' + (index%2==0?'ff':'33')}}>
+                style={{color: '#777777' + (item%2==0?'ff':'33')}}>
                   {'Text ' + item.toString() + ' '}
                 </Text>
               );
@@ -100,13 +101,13 @@ export default class OpacityBugDemo extends Component {
             <Text>Clear</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.button} onPress={() => {
-            this.add2Items();
+            this.addItem();
           }}>
             <Text>Add without animation</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.button} onPress={() => {
             LayoutAnimation.easeInEaseOut();
-            this.add2Items();
+            this.addItem();
           }}>
             <Text>Add with animation</Text>
           </TouchableOpacity>
@@ -132,9 +133,10 @@ const styles = StyleSheet.create({
   button: {
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: 'white',
+    backgroundColor: 'lightgray',
     marginLeft: 10,
     marginRight: 10,
+    borderRadius: 4,
   },
 });
 
