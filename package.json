@@ -8,7 +8,7 @@
   },
   "dependencies": {
     "react": "15.4.1",
-    "react-native": "github:vinceyuan/react-native#master"
+    "react-native": "github:vinceyuan/react-native#fix-layoutanimation-opacity"
   },
   "devDependencies": {
     "babel-jest": "18.0.0",
