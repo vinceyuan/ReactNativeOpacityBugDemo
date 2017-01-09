@@ -21,4 +21,6 @@ Update:
 2. Sometimes `Remove with animation` makes other views disappear unpredictably. I will submit another issue.
 3. I modified this demo to check scaling (`ScaleAnimation`). `ScaleAnimation` works well when width/height changes. `ScaleAnimation` has nothing to do with style `transform`.
 
+![Screenshot](https://github.com/vinceyuan/ReactNativeOpacityBugDemo/raw/master/ReactNativeOpacityBug2.gif)
+
 Author: Vince Yuan
