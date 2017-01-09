@@ -29,8 +29,16 @@ export default class OpacityBugDemo extends Component {
 
   addItem() {
     let count = this.state.items.length;
-    //this.setState({items: [count+2, count+1, ...this.state.items]});
     this.setState({items: [count+1, ...this.state.items]});
+  }
+
+  removeItem() {
+    let count = this.state.items.length;
+    if (count > 0) {
+      let items = [...this.state.items];
+      items.shift();
+      this.setState({items: items});
+    }
   }
 
   render() {
@@ -94,22 +102,39 @@ export default class OpacityBugDemo extends Component {
           }
         </View>
 
-        <View style={styles.row}>
-          <TouchableOpacity style={styles.button} onPress={() => {
-            this.setState({items: []});
-          }}>
-            <Text>Clear</Text>
-          </TouchableOpacity>
+        <View style={[styles.row, styles.marginTop]}>
           <TouchableOpacity style={styles.button} onPress={() => {
             this.addItem();
           }}>
             <Text>Add without animation</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.button} onPress={() => {
+            this.removeItem();
+          }}>
+            <Text>Remove without animation</Text>
+          </TouchableOpacity>
+        </View>
+
+        <View style={[styles.row, styles.marginTop]}>
+          <TouchableOpacity style={styles.button} onPress={() => {
             LayoutAnimation.easeInEaseOut();
             this.addItem();
           }}>
             <Text>Add with animation</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.button} onPress={() => {
+            LayoutAnimation.easeInEaseOut();
+            this.removeItem();
+          }}>
+            <Text>Remove with animation</Text>
+          </TouchableOpacity>
+        </View>
+
+        <View style={[styles.row, styles.marginTop]}>
+          <TouchableOpacity style={styles.button} onPress={() => {
+            this.setState({items: []});
+          }}>
+            <Text>Clear</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -129,6 +154,9 @@ const styles = StyleSheet.create({
   },
   row: {
     flexDirection: 'row',
+  },
+  marginTop: {
+    marginTop: 10,
   },
   button: {
     alignItems: 'center',
