@@ -17,7 +17,7 @@ import {
 } from 'react-native';
 
 export default class OpacityBugDemo extends Component {
-  state = {items: []};
+  state = {items: [], scale: 1};
 
   constructor() {
     super();
@@ -41,6 +41,16 @@ export default class OpacityBugDemo extends Component {
     }
   }
 
+  scaleItem() {
+    let scale = this.state.scale;
+    if (scale == 1) {
+      scale = 0.5;
+    } else {
+      scale = 1;
+    }
+    this.setState({scale: scale});
+  }
+
   render() {
     return (
       <View style={styles.container}>
@@ -51,7 +61,7 @@ export default class OpacityBugDemo extends Component {
         <Text>
           Opacity on texts:
         </Text>
-        <View style={[styles.row, {width: 300, height: 40}]}>
+        <View style={[styles.row, {height: 40}]}>
           {
             this.state.items.map((item, index) => {
               let width = 100;
@@ -69,7 +79,7 @@ export default class OpacityBugDemo extends Component {
         <Text>
           Opacity on views:
         </Text>
-        <View style={[styles.row, {width: 300, height: 40}]}>
+        <View style={[styles.row, {height: 40}]}>
           {
             this.state.items.map((item, index) => {
               let width = 100;
@@ -87,7 +97,7 @@ export default class OpacityBugDemo extends Component {
         <Text>
           Workaround opacity issue for texts by adding alpha to color:
         </Text>
-        <View style={[styles.row, {width: 300, height: 40}]}>
+        <View style={[styles.row, {height: 40}]}>
           {
             this.state.items.map((item, index) => {
               let width = 100;
@@ -137,6 +147,35 @@ export default class OpacityBugDemo extends Component {
             <Text>Clear</Text>
           </TouchableOpacity>
         </View>
+
+        <Text style={styles.marginTop}>Scale by changing width and height</Text>
+        <View style={{width: 100, height: 50, backgroundColor: 'gray'}}>
+          <View key='1' style={[{width: 100*this.state.scale, height: 50*this.state.scale, backgroundColor: 'green'}]}>
+            <Text>scale</Text>
+          </View>
+        </View>
+
+        <Text style={styles.marginTop}>Scale by style transform scale</Text>
+        <View style={{width: 100, height: 50, backgroundColor: 'gray'}}>
+          <View key='1' style={[{width: 100, height: 50, backgroundColor: 'green'}, {transform: [{scale: this.state.scale}]}]}>
+            <Text>scale</Text>
+          </View>
+        </View>
+
+        <View style={[styles.row, styles.marginTop]}>
+          <TouchableOpacity style={styles.button} onPress={() => {
+            this.scaleItem();
+          }}>
+            <Text>Scale without animation</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.button} onPress={() => {
+            LayoutAnimation.easeInEaseOut();
+            this.scaleItem();
+          }}>
+            <Text>Scale with animation</Text>
+          </TouchableOpacity>
+        </View>
+
       </View>
     );
   }
