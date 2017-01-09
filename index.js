@@ -155,7 +155,7 @@ export default class OpacityBugDemo extends Component {
           </View>
         </View>
 
-        <Text style={styles.marginTop}>Scale by style transform scale</Text>
+        <Text style={styles.marginTop}>Scale by setting style transform (No animation at all)</Text>
         <View style={{width: 100, height: 50, backgroundColor: 'gray'}}>
           <View key='1' style={[{width: 100, height: 50, backgroundColor: 'green'}, {transform: [{scale: this.state.scale}]}]}>
             <Text>scale</Text>
