@@ -18,10 +18,8 @@ A pull request has been created. https://github.com/facebook/react-native/pull/1
 
 ###Update:
 
-1. I added `Remove with animation` to check reversed `OpacityAnimation`.
-2. Sometimes `Remove with animation` makes other views disappear unpredictably. I will submit another issue.
-3. I modified this demo to check scaling (`ScaleAnimation`). `ScaleAnimation` works well when width/height changes. `ScaleAnimation` has nothing to do with style `transform`.
-
-![Screenshot](https://github.com/vinceyuan/ReactNativeOpacityBugDemo/raw/master/ReactNativeOpacityBug2.gif)
+1. I added `Remove with opacity animation` to check reversed `OpacityAnimation`.
+2. Sometimes removing items with animation makes other views disappear unpredictably. I will submit another issue.
+3. I added customized `LayoutAnimation` to show `scaleXY` animation on view with style scale (e.g. `{transform: [{scale: 0.5}]}`).
 
 Author: Vince Yuan
