@@ -10,15 +10,18 @@ Reproducible with React Native 0.33+ (including 0.40 and 0.41) on Android 5.0.0
 
 I reported this bug https://github.com/facebook/react-native/issues/11769
 
-Solution:
+###Solution:
 
 Set correct opacity value in `OpacityAnimation`. You can try my fix on branch fix-react-native-issue-11769 which compiles react-native from source code of my react native fork.
 
 A pull request has been created. https://github.com/facebook/react-native/pull/11770
 
-Update:
-1. I added `Remove with animation` to check reversed `OpacityAnimation`.
-2. Sometimes `Remove with animation` makes other views disappear unpredictably. I will submit another issue.
-3. I modified this demo to check scaling (`ScaleAnimation`). `ScaleAnimation` works well when width/height changes. `ScaleAnimation` has nothing to do with style `transform`.
+###Update:
+
+1. I added `Remove with opacity animation` to check reversed `OpacityAnimation`.
+2. Sometimes removing items with animation makes other views disappear unpredictably. I will submit another issue.
+3. I added customized `LayoutAnimation` to show `scaleXY` animation on view with style scale (e.g. `{transform: [{scale: 0.5}]}`).
+
+![Screenshot](https://github.com/vinceyuan/ReactNativeOpacityBugDemo/raw/master/ReactNativeOpacityBug3.gif)
 
 Author: Vince Yuan
