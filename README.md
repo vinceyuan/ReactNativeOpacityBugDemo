@@ -22,4 +22,6 @@ A pull request has been created. https://github.com/facebook/react-native/pull/1
 2. Sometimes removing items with animation makes other views disappear unpredictably. I will submit another issue.
 3. I added customized `LayoutAnimation` to show `scaleXY` animation on view with style scale (e.g. `{transform: [{scale: 0.5}]}`).
 
+![Screenshot](https://github.com/vinceyuan/ReactNativeOpacityBugDemo/raw/master/ReactNativeOpacityBug3.gif)
+
 Author: Vince Yuan
