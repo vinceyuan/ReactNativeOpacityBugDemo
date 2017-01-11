@@ -17,7 +17,7 @@ import {
 } from 'react-native';
 
 export default class OpacityBugDemo extends Component {
-  state = {items: [], scale: 1};
+  state = {items: []};
 
   constructor() {
     super();
@@ -41,17 +41,23 @@ export default class OpacityBugDemo extends Component {
     }
   }
 
-  scaleItem() {
-    let scale = this.state.scale;
-    if (scale == 1) {
-      scale = 0.5;
-    } else {
-      scale = 1;
-    }
-    this.setState({scale: scale});
-  }
-
   render() {
+    customAnimationConfig = {
+      duration: 700,
+      create: {
+        type: LayoutAnimation.Types.linear,
+        property: LayoutAnimation.Properties.scaleXY,
+      },
+      update: {
+        type: LayoutAnimation.Types.spring,
+        springDamping: 0.4,
+      },
+      delete: {
+        type: LayoutAnimation.Types.linear,
+        property: LayoutAnimation.Properties.scaleXY,
+      },
+    };
+
     return (
       <View style={styles.container}>
         <Text style={styles.welcome}>
@@ -59,13 +65,11 @@ export default class OpacityBugDemo extends Component {
         </Text>
 
         <Text>
-          Opacity on texts:
+          Opacity 0.2 on odd-numbered texts:
         </Text>
         <View style={[styles.row, {height: 40}]}>
           {
             this.state.items.map((item, index) => {
-              let width = 100;
-              let left = index * width;
               return (
                 <Text key={item}
                 style={item%2==0?null:{opacity: 0.2}}>
@@ -77,16 +81,30 @@ export default class OpacityBugDemo extends Component {
         </View>
 
         <Text>
-          Opacity on views:
+          Opacity 0.2 on odd-numbered views:
         </Text>
         <View style={[styles.row, {height: 40}]}>
           {
             this.state.items.map((item, index) => {
-              let width = 100;
-              let left = index * width;
               return (
                 <View key={item}
                   style={[{backgroundColor: 'green'}, item%2==0?null:{opacity: 0.2}]}>
+                  <Text>{'Text ' + item.toString() + ' '}</Text>
+                </View>
+              );
+            })
+          }
+        </View>
+
+        <Text>
+          Transform scale 0.5 on odd-numbered views:
+        </Text>
+        <View style={[styles.row, {height: 40}]}>
+          {
+            this.state.items.map((item, index) => {
+              return (
+                <View key={item}
+                  style={[{backgroundColor: 'green'}, item%2==0?null:{transform: [{scale: 0.5}]}]}>
                   <Text>{'Text ' + item.toString() + ' '}</Text>
                 </View>
               );
@@ -100,8 +118,6 @@ export default class OpacityBugDemo extends Component {
         <View style={[styles.row, {height: 40}]}>
           {
             this.state.items.map((item, index) => {
-              let width = 100;
-              let left = index * width;
               return (
                 <Text key={item}
                 style={{color: '#777777' + (item%2==0?'ff':'33')}}>
@@ -130,13 +146,28 @@ export default class OpacityBugDemo extends Component {
             LayoutAnimation.easeInEaseOut();
             this.addItem();
           }}>
-            <Text>Add with animation</Text>
+            <Text>Add with opacity animation</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.button} onPress={() => {
             LayoutAnimation.easeInEaseOut();
             this.removeItem();
           }}>
-            <Text>Remove with animation</Text>
+            <Text>Remove with opacity animation</Text>
+          </TouchableOpacity>
+        </View>
+
+        <View style={[styles.row, styles.marginTop]}>
+          <TouchableOpacity style={styles.button} onPress={() => {
+            LayoutAnimation.configureNext(customAnimationConfig);
+            this.addItem();
+          }}>
+            <Text>Add with scaleXY animation</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.button} onPress={() => {
+            LayoutAnimation.configureNext(customAnimationConfig);
+            this.removeItem();
+          }}>
+            <Text>Remove with scaleXY animation</Text>
           </TouchableOpacity>
         </View>
 
@@ -145,34 +176,6 @@ export default class OpacityBugDemo extends Component {
             this.setState({items: []});
           }}>
             <Text>Clear</Text>
-          </TouchableOpacity>
-        </View>
-
-        <Text style={styles.marginTop}>Scale by changing width and height</Text>
-        <View style={{width: 100, height: 50, backgroundColor: 'gray'}}>
-          <View key='1' style={[{width: 100*this.state.scale, height: 50*this.state.scale, backgroundColor: 'green'}]}>
-            <Text>scale</Text>
-          </View>
-        </View>
-
-        <Text style={styles.marginTop}>Scale by setting style transform (No animation at all)</Text>
-        <View style={{width: 100, height: 50, backgroundColor: 'gray'}}>
-          <View key='1' style={[{width: 100, height: 50, backgroundColor: 'green'}, {transform: [{scale: this.state.scale}]}]}>
-            <Text>scale</Text>
-          </View>
-        </View>
-
-        <View style={[styles.row, styles.marginTop]}>
-          <TouchableOpacity style={styles.button} onPress={() => {
-            this.scaleItem();
-          }}>
-            <Text>Scale without animation</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.button} onPress={() => {
-            LayoutAnimation.easeInEaseOut();
-            this.scaleItem();
-          }}>
-            <Text>Scale with animation</Text>
           </TouchableOpacity>
         </View>
 
